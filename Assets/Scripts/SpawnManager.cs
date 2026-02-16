@@ -1,6 +1,7 @@
  using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -95,6 +96,8 @@ public class SpawnManager : MonoBehaviour
         currentEnemy = 0;
         enemiesAlive = 0;
         isWaveActive = true;
+
+        UIManager.Instance.SetWave(currentWave);
         
         
         numOfEnemy += Random.Range(0, enemyIncrement);
@@ -138,6 +141,8 @@ public class SpawnManager : MonoBehaviour
         
         
     }
+
+    
 
 
    

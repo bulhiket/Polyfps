@@ -23,6 +23,7 @@ public class WeaponCore : MonoBehaviour
     private bool readyToShoot;
     private bool reloading;
     public bool allowButtonHold;
+    public bool canSwitch;
 
 
     public Camera fpsCam;
@@ -41,6 +42,8 @@ public class WeaponCore : MonoBehaviour
     public AudioClip reloadSound;
     private AudioSource _source;
     public ParticleSystem muzzleFlash;
+    public ParticleSystem hitEffect;
+    
 
 
     void Awake()
@@ -51,6 +54,7 @@ public class WeaponCore : MonoBehaviour
         _animator = GetComponent<Animator>();
         // mLook = FindAnyObjectByType<MouseLook>();
         _source = GetComponent<AudioSource>();
+        
         
     }
 
@@ -73,10 +77,12 @@ public class WeaponCore : MonoBehaviour
             _source.PlayOneShot(shootSound);
             Debug.Log("Shoot");
         }
+        
     }
 
     private void Reload()
     {
+        canSwitch = false;
         reloading = true;
 
         if(allBullets <= 0) return;
@@ -84,13 +90,15 @@ public class WeaponCore : MonoBehaviour
         int bulletsNeeded = magazineSize - bulletsLeft;
         int bulletsToAdd = Mathf.Min(bulletsNeeded, allBullets);
 
-        bulletsLeft += bulletsToAdd;
-        allBullets -= bulletsToAdd;
+        
 
         _source.PlayOneShot(reloadSound);
         _animator.SetBool("Reload", true);
 
         Invoke("ReloadFinish", reloadTime);
+
+        bulletsLeft += bulletsToAdd;
+        allBullets -= bulletsToAdd;
 
 
     }
@@ -100,10 +108,12 @@ public class WeaponCore : MonoBehaviour
         
         reloading = false;
         _animator.SetBool("Reload", false);
+        canSwitch = true;
     }
 
     private void Shoot()
     {
+        
         readyToShoot = false;
 
 
@@ -111,9 +121,14 @@ public class WeaponCore : MonoBehaviour
         if(Physics.Raycast(fpsCam.transform.position, transform.forward, out rayHit, range, whatIsEnemy))
         {
             Debug.Log(rayHit.collider.name);
-            if(rayHit.collider.tag == "Labubu")
+            if(rayHit.collider.CompareTag("Labubu"))
             {
+                hitEffect.transform.position = rayHit.point + (rayHit.normal * 0.01f);
+                hitEffect.transform.rotation = Quaternion.LookRotation(rayHit.normal);
+                hitEffect.Play();
+
                 rayHit.collider.GetComponent<BotHPManager>().TakeDamage(damage);
+                
             }
         }
 
@@ -126,19 +141,16 @@ public class WeaponCore : MonoBehaviour
         Invoke("ResetShoot", timeBetweenShooting);
 
         if(bulletsShot > 0 && bulletsLeft > 0) Invoke("Shoot", timeBetweenShots);
+
+        UIManager.Instance.SetAmmoUI(allBullets, bulletsLeft);
         
     }
 
     private void ResetShoot()
     {
         readyToShoot = true;
+        
     }
 
-    void OnGUI()
-    {
-        float centerX = Screen.width / 2;
-        float centerY = Screen.height / 2;
-
-        GUI.DrawTexture(new Rect(centerX - crosshairSize / 2, centerY - crosshairSize / 2, crosshairSize, crosshairSize), crosshair);
-    }
+    
 }

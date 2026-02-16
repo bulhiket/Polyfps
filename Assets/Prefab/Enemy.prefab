@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 366072355991913219, guid: ebe7502f0c414684986455675e848176, type: 3}
       propertyPath: m_Name
-      value: LabubuRigged Variant
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 366072355991913219, guid: ebe7502f0c414684986455675e848176, type: 3}
       propertyPath: m_Layer
@@ -579,4 +579,4 @@ MonoBehaviour:
   _player: {fileID: 0}
   damage: 25
   attackRate: 1
-  attackRange: 2
+  attackRange: 5

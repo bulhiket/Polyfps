@@ -25,14 +25,13 @@ public class GameController : MonoBehaviour
     public Texture2D crosshair;
     public float crosshairSize = 25f;
 
-    private Shake camShake;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         currentSpeed = walkSpeed;
 
-        camShake = playerCam.GetComponent<Shake>();
+        
 
         Cursor.lockState = CursorLockMode.Locked;
     }

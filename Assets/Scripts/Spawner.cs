@@ -19,14 +19,7 @@ public class Spawner : MonoBehaviour
     public void Spawn(GameObject enemyPrefab)
     {
         GameObject enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
-        // LabubuAI ai = enemy.GetComponent<LabubuAI>();
-        AiEnemy ai = enemy.GetComponent<AiEnemy>();
-        // ai._player = _player;
-        // if(ai._player == null)
-        // {
-        //     Destroy(enemy);
-        // }
-        
+
 
     }
 }

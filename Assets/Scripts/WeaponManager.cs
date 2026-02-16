@@ -44,28 +44,39 @@ public class WeaponManager : MonoBehaviour
 
     private void SwitchWeapon(int newWeaponIndex)
     {
-        // Выключаем текущее оружие
-        weapons[currentWeapon].SetActive(false);
+        if(currentweaponComponent.canSwitch)
+        {
+            
+            weapons[currentWeapon].SetActive(false);
 
-        // Включаем новое
-        weapons[newWeaponIndex].SetActive(true);
+            
+            weapons[newWeaponIndex].SetActive(true);
+
+            currentWeapon = newWeaponIndex;
+
+            GetCurrentWeapon();
+
+            Debug.Log($"Переключено на оружие: {newWeaponIndex}");
+        }
+
+        else
+        {
+            Debug.Log("Оружие стреляет или перезаряжается");
+        }
+
+
+       
 
 
 
-        currentWeapon = newWeaponIndex;
-
-        GetCurrentWeapon();
-
-        Debug.Log($"Переключено на оружие: {newWeaponIndex}");
+        
     }
     
     private void GetCurrentWeapon()
     {
         currentweaponComponent = weapons[currentWeapon].GetComponent<WeaponCore>();
+        
     }
 
-    void OnGUI()
-    {
-        ammoUi.text = $"{currentweaponComponent.bulletsLeft}/{currentweaponComponent.allBullets}";
-    }
+    
 }
