@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEditor.PackageManager;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; set;}
     public TextMeshProUGUI ammoUi;
     public TextMeshProUGUI waveTxt;
+    public TextMeshProUGUI enemyTxt;
+    public GameObject Hitmarker;
 
     void Awake()
     {
@@ -45,5 +48,22 @@ public class UIManager : MonoBehaviour
         waveTxt.text = $"Волна: {wave}";
     }
 
+    public void SetEnemy(int enemys)
+    {
+        enemyTxt.text = $"Врагов: {enemys}";
+    }
+
+    public void SetHitWithDelay()
+    {
+        StopAllCoroutines();
+        StartCoroutine(SetHit());
+    }
+
+    private IEnumerator SetHit()
+    {
+        Hitmarker.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        Hitmarker.SetActive(false);
+    }
     
 }

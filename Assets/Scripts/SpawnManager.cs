@@ -7,7 +7,7 @@ using UnityEngine.AI;
 
 public class SpawnManager : MonoBehaviour
 {
-    private GameObject[] managers;
+    public Spawner[] managers;
     public GameObject enemyPrefab;
 
 
@@ -22,16 +22,20 @@ public class SpawnManager : MonoBehaviour
     public int startEnemyCount = 3;
     public int enemiesAlive = 0;
     public bool isWaveActive = false;
-    public int enemyIncrement = 4;
+    public int enemyIncrement = 15;
     public float waveBreakTime =3.5f;
+
+    private int enemyToShow = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        managers = GameObject.FindGameObjectsWithTag("Spawner");
+        
+        
         Debug.Log($"Spawners : {managers.Length}");
 
         numOfEnemy = startEnemyCount;
+        enemyToShow = numOfEnemy;
         StartCoroutine(StartWaveWithDelay());
 
 
@@ -76,11 +80,11 @@ public class SpawnManager : MonoBehaviour
         }
 
         int randomIndex = Random.Range(0, managers.Length);
-        Spawner spawner = managers[randomIndex].GetComponent<Spawner>();
+        // Spawner spawner = managers[randomIndex].GetComponent<Spawner>();
 
-        if (spawner != null && enemyPrefab != null)
+        if (managers[randomIndex] != null && enemyPrefab != null)
         {
-            spawner.Spawn(enemyPrefab);
+            managers[randomIndex].Spawn(enemyPrefab);
             currentEnemy++;
             enemiesAlive++;
             
@@ -100,13 +104,16 @@ public class SpawnManager : MonoBehaviour
         UIManager.Instance.SetWave(currentWave);
         
         
-        numOfEnemy += Random.Range(0, enemyIncrement);
+        numOfEnemy += Random.Range(4, enemyIncrement);
+        enemyToShow = numOfEnemy;
         
         
         
         Debug.Log($"=== ВОЛНА {currentWave} НАЧАЛАСЬ ===");
         Debug.Log($"Врагов в волне: {numOfEnemy}");
         Debug.Log($"Спавн каждые: {spawnRate} сек");
+
+        UIManager.Instance.SetEnemy(enemyToShow);
         
     }
 
@@ -135,8 +142,10 @@ public class SpawnManager : MonoBehaviour
     {
         enemiesAlive--;
         enemiesAlive = Mathf.Max(0, enemiesAlive);
+        enemyToShow--;
         
         Debug.Log($"Враг убит. Осталось живых: {enemiesAlive}");
+        UIManager.Instance.SetEnemy(enemyToShow);
         
         
         

@@ -9,10 +9,12 @@ public class BotHPManager : MonoBehaviour
     public int HP = 100;
     private Rigidbody rb;
     public int impactForce = 5;
+    private SpawnManager spawnManager;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        spawnManager = FindObjectOfType<SpawnManager>();
     }
 
 
@@ -31,7 +33,7 @@ public class BotHPManager : MonoBehaviour
         {
             Destroy(gameObject);
 
-            SpawnManager spawnManager = FindObjectOfType<SpawnManager>();
+            
             if (spawnManager != null)
             {
                 spawnManager.EnemyDefeated();
