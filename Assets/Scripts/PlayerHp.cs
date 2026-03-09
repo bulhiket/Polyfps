@@ -1,6 +1,7 @@
 using UnityEngine.UI;
 using UnityEngine;
-using Unity.VisualScripting;
+using System;
+using NUnit.Framework.Constraints;
 
 public class PlayerHP : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class PlayerHP : MonoBehaviour
     public Slider HP_slider;
     
     private int currentHp;
+
+    public MonoBehaviour look_script;
+    public GameObject weaponHolder;
 
     void Start()
     {
@@ -32,8 +36,28 @@ public class PlayerHP : MonoBehaviour
 
         if (currentHp == 0)
         {
-            Destroy(gameObject);
+            Die();
+            
         }
+    }
+
+    public void AddHP(int amount)
+    {
+        currentHp = Math.Max(currentHp + amount, HP);
+        HP_slider.value = currentHp;
+    }
+
+    private void Die()
+    {
+        look_script = GetComponentInChildren<MouseLook>();
+        look_script.enabled = false;
+        weaponHolder.SetActive(false);
+
+        Time.timeScale = 0;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
     }
 
 

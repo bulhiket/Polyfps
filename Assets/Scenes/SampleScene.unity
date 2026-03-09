@@ -807,6 +807,10 @@ PrefabInstance:
       propertyPath: ammoUi
       value: 
       objectReference: {fileID: 575521345}
+    - target: {fileID: 4905527364952590618, guid: 92dbe5c2dac08b4478b206a3c1c92460, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5750274807604830197, guid: 92dbe5c2dac08b4478b206a3c1c92460, type: 3}
       propertyPath: m_LocalPosition.x
       value: 185.58553
@@ -867,6 +871,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FirstPersonPlayer Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 6073311694525633810, guid: 92dbe5c2dac08b4478b206a3c1c92460, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6579477832842568476, guid: 92dbe5c2dac08b4478b206a3c1c92460, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -899,6 +907,10 @@ PrefabInstance:
       propertyPath: HP_slider
       value: 
       objectReference: {fileID: 312050373}
+    - target: {fileID: 7836709938473150552, guid: 92dbe5c2dac08b4478b206a3c1c92460, type: 3}
+      propertyPath: weaponHolder
+      value: 
+      objectReference: {fileID: 301462840}
     - target: {fileID: 7893833273743082864, guid: 92dbe5c2dac08b4478b206a3c1c92460, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -2241,6 +2253,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8973d278752e1ac44a8f392b039ad7dd, type: 3}
+--- !u!1 &301462840 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6579477832842568476, guid: 92dbe5c2dac08b4478b206a3c1c92460, type: 3}
+  m_PrefabInstance: {fileID: 81263992}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &304432930
 PrefabInstance:
   m_ObjectHideFlags: 0

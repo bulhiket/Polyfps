@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
+
 using UnityEngine;
 
 public class BotHPManager : MonoBehaviour
@@ -10,6 +8,7 @@ public class BotHPManager : MonoBehaviour
     private Rigidbody rb;
     public int impactForce = 5;
     private SpawnManager spawnManager;
+    public GameObject[] drop;
 
     void Start()
     {
@@ -31,7 +30,7 @@ public class BotHPManager : MonoBehaviour
 
         if (HP <= 0)
         {
-            Destroy(gameObject);
+            Die();
 
             
             if (spawnManager != null)
@@ -44,16 +43,18 @@ public class BotHPManager : MonoBehaviour
 
     private void Die()
     {
-        if (HP == 0)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
+        
+        
+        Drop();
+        Destroy(gameObject);
         
     }
+
+    private void Drop()
+    {
+        if(drop.Length == 0) return;
+        int drop_index = Random.Range(0, drop.Length);
+        Instantiate(drop[drop_index], transform.position + Vector3.up, Quaternion.identity);
+    }
+
 }

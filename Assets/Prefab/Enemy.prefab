@@ -564,6 +564,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BotHPManager
   HP: 100
   impactForce: 5
+  drop:
+  - {fileID: 4821399304193121770, guid: de39d9c3056ea4341979064d789bc216, type: 3}
+  - {fileID: 3059816693641698347, guid: f1df3e1fd36eb5f4dacd42f51412d2ac, type: 3}
 --- !u!114 &7464348445769847450
 MonoBehaviour:
   m_ObjectHideFlags: 0

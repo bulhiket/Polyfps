@@ -78,5 +78,11 @@ public class WeaponManager : MonoBehaviour
         
     }
 
+    public void AddAmmo(int amount)
+    {
+        currentweaponComponent.allBullets += amount;
+        currentweaponComponent.UpdateUI();
+    }
+
     
 }

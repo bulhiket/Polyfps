@@ -52,7 +52,6 @@ public class WeaponCore : MonoBehaviour
         readyToShoot = true;
         fpsCam = GetComponentInParent<Camera>();
         _animator = GetComponent<Animator>();
-        // mLook = FindAnyObjectByType<MouseLook>();
         _source = GetComponent<AudioSource>();
         
         
@@ -60,7 +59,7 @@ public class WeaponCore : MonoBehaviour
 
     void OnEnable()
     {
-        UIManager.Instance.SetAmmoUI(allBullets, bulletsLeft);
+        UpdateUI();
         canSwitch = true;
     }
 
@@ -114,7 +113,7 @@ public class WeaponCore : MonoBehaviour
         
         reloading = false;
         _animator.SetBool("Reload", false);
-        UIManager.Instance.SetAmmoUI(allBullets, bulletsLeft);
+        UpdateUI();
         canSwitch = true;
     }
 
@@ -130,10 +129,6 @@ public class WeaponCore : MonoBehaviour
             Debug.Log(rayHit.collider.name);
             if(rayHit.collider.CompareTag("Labubu"))
             {
-                // hitEffect.transform.position = rayHit.point + (rayHit.normal * 0.01f);
-                // hitEffect.transform.rotation = Quaternion.LookRotation(rayHit.normal);
-                // hitEffect.Play();
-
                 rayHit.collider.GetComponent<BotHPManager>().TakeDamage(damage);
 
                 UIManager.Instance.SetHitWithDelay();
@@ -151,7 +146,7 @@ public class WeaponCore : MonoBehaviour
 
         if(bulletsShot > 0 && bulletsLeft > 0) Invoke("Shoot", timeBetweenShots);
 
-        UIManager.Instance.SetAmmoUI(allBullets, bulletsLeft);
+        UpdateUI();
         
     }
 
@@ -159,6 +154,11 @@ public class WeaponCore : MonoBehaviour
     {
         readyToShoot = true;
         
+    }
+
+    public void UpdateUI()
+    {
+        UIManager.Instance.SetAmmoUI(allBullets, bulletsLeft);
     }
 
     

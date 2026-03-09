@@ -70,34 +70,32 @@ public class LabubuAI : MonoBehaviour
 
         yield return new WaitForSeconds(2.6f);
 
-        Vector3 lookPos = _player.transform.position - transform.position;
-        lookPos.y = 0;
-        if(lookPos != Vector3.zero)
-        {
-            transform.rotation = Quaternion.LookRotation(lookPos);
-        }
+        // Vector3 lookPos = _player.transform.position - transform.position;
+        // lookPos.y = 0;
+        // if(lookPos != Vector3.zero)
+        // {
+        //     transform.rotation = Quaternion.LookRotation(lookPos);
+        // }
 
-        if(_player != null && Vector3.Distance(transform.position, _player.transform.position) <= attackRange)
-        {
-            _playerHP.TakeDamage(damage);
-        }
+        // if(_player != null && Vector3.Distance(transform.position, _player.transform.position) <= attackRange)
+        // {
+        //     _playerHP.TakeDamage(damage);
+        // }
 
         yield return new WaitForSeconds(attackRate); 
         canAtack = true;
     }
 
 
-    // public void AttackPlayer()
-    // {
-    //     _agent.isStopped = true;
-    //     // _agent.velocity = Vector3.zero;
-
+    public void AttackPlayer()
+    {
+        if(_player != null && Vector3.Distance(transform.position, _player.transform.position) <= attackRange)
+        {
+            _playerHP.TakeDamage(damage);
+        }
         
 
-    //     canAtack = false;
-    //     StartCoroutine(Attack(2.6f));
-
-    // }
+    }
 
    
     
