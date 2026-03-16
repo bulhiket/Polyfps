@@ -53,8 +53,14 @@ public class BotHPManager : MonoBehaviour
     private void Drop()
     {
         if(drop.Length == 0) return;
-        int drop_index = Random.Range(0, drop.Length);
-        Instantiate(drop[drop_index], transform.position + Vector3.up, Quaternion.identity);
+
+        float chance = Random.Range(10f, 75f);
+        if(chance > 50)
+        {
+            int drop_index = Random.Range(0, drop.Length);
+            Instantiate(drop[drop_index], transform.position + Vector3.up, Quaternion.identity);
+        }
+        
     }
 
 }

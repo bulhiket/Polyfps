@@ -16,6 +16,7 @@ public class LabubuAI : MonoBehaviour
     public float attackRate = 1f;
     public float attackRange = 5f;
     bool canAtack = true;
+    
 
 
     

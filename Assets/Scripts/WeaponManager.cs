@@ -1,24 +1,23 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using DG.Tweening.Core.Easing;
+
 using TMPro;
 using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
     public GameObject[] weapons;
+    public bool[] unlockedWeapons;
     private WeaponCore currentweaponComponent;
     private int currentWeapon = 0;
     public TextMeshProUGUI ammoUi;
     void Start()
     {
-        weapons = GameObject.FindGameObjectsWithTag("Weapon");
-        for (int i = 1; i <= weapons.Length; i++)
+
+        for (int i = 0; i < weapons.Length; i++)
         {
-            weapons[i].SetActive(false);
+            weapons[i].SetActive(i == currentWeapon && unlockedWeapons[i]);
         }
+
+        
     }
 
     // Update is called once per frame
@@ -34,11 +33,10 @@ public class WeaponManager : MonoBehaviour
         {
             int newWeapon = currentWeapon + (scroll > 0 ? 1 : -1);
 
-            // Проверка границ массива
-            if (newWeapon >= 0 && newWeapon < weapons.Length)
-            {
-                SwitchWeapon(newWeapon);
-            }
+            
+            if(newWeapon < 0) newWeapon = weapons.Length - 1;
+            if(newWeapon > weapons.Length - 1) newWeapon = 0;
+            SwitchWeapon(newWeapon);
         }
     }
 

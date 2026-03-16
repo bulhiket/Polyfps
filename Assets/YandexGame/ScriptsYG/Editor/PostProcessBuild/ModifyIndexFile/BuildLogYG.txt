@@ -1,0 +1,2 @@
+Build path: D:/share/Builds/Labubu
+Build number: 2

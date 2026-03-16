@@ -1,9 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEditor.PackageManager;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using YG;
+
 
 public class UIManager : MonoBehaviour
 {
@@ -13,12 +13,16 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI enemyTxt;
     public GameObject Hitmarker;
 
+    public GameObject gameUI;
+    public GameObject deathUI;
+    public PlayerHP playerHP;
+
     void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            // DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -27,16 +31,17 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    void Start()
+    private void Onable()
     {
-        
+        YandexGame.RewardVideoEvent += GetReward;     
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        
+        YandexGame.RewardVideoEvent -= GetReward; 
     }
+
+
 
     public void SetAmmoUI(int maxAmmo, int currentAmmo)
     {
@@ -66,4 +71,42 @@ public class UIManager : MonoBehaviour
         Hitmarker.SetActive(false);
     }
     
+
+    public void ShowDeathUI()
+    {
+        gameUI.SetActive(false);
+        deathUI.SetActive(true);
+    }
+
+    public void ShowGameUI()
+    {
+        deathUI.SetActive(false);
+        gameUI.SetActive(true);
+        
+    }
+
+    public void RestartBtn()
+    {
+        YandexGame.FullscreenShow();
+        SceneManager.LoadScene(1);
+        Time.timeScale = 1f;
+
+    }
+    public void ReviveBtn()
+    {
+        playerHP.Revive();
+    }
+    
+    void OpenReward(int id)
+    {
+        YandexGame.RewVideoShow(id);
+    }
+
+    void GetReward(int id)
+    {
+        if(id == 1)
+        {
+            ReviveBtn();
+        }
+    }
 }
